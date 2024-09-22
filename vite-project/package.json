@@ -5,14 +5,11 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "server":"nodemon index.js",
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview"
   },
   "dependencies": {
-    "express": "^4.21.0",
-    "nodemon": "^3.1.7",
     "react": "^18.3.1",
     "react-dom": "^18.3.1"
   },

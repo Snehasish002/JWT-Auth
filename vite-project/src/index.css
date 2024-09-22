@@ -18,16 +18,25 @@
   margin-bottom: 20px;
 }
 
-.form .data{
+.form .form-data{
   display: flex;
   flex-direction: column;
   gap: 15px;
 }
 
-.form .data input{
-  background: white;
+.form .form-data input{
   padding: 8px 20px;
   border: none;
   border-radius: 10px;
+  
+}
+
+.name, .email, .password {
+  background-color: white;
   color: black;
+}
+
+.reg {
+  background: rgb(0, 164, 44);
+  cursor: pointer;
 }
