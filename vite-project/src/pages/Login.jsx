@@ -7,7 +7,7 @@ function App() {
 
   async function loginUser(event){
     event.preventDefault()
-    const response = await fetch('http://localhost:3000/api/users/login', {
+    const response = await fetch('http://localhost:3000/api/login', {
       method: 'POST',
       headers: {
         'content-Type':'application/json',
@@ -41,7 +41,7 @@ function App() {
           type="password"
           placeholder="Password"
         />
-        <input className="reg" type="submit" value="Register" />
+        <input className="reg" type="submit" value="Login" />
       </form>
     </div>
   );

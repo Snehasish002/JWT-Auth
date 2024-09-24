@@ -8,8 +8,8 @@ const App = () => {
     <div>
       <BrowserRouter>
         <Routes>
-          <Route path="/login" exact Component={Login} />
-          <Route path="/register" exact Component={Register} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
         </Routes>
       </BrowserRouter>
     </div>
