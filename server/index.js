@@ -2,6 +2,7 @@ import express from "express"
 import cors from "cors"
 import mongoose from "mongoose";
 import User from "./models/user.model.js"
+import jwt from "jsonwebtoken"
 
 const app = express();
 const PORT = 3000;
@@ -29,21 +30,29 @@ app.post("/api/register", async (req, res) => {
 app.post("/api/login", async (req, res) => {
     console.log(req.body)
 
+    // Find the user with matching email and password
     const user = await User.findOne({
         email: req.body.email,
         password: req.body.password
     })
 
     if (user) {
-        return res.json({ status: "ok", user:true})
-    }else{
-        res.json({ status: "error", user:false })
+        // Generate a JWT token
+        const token = jwt.sign(
+            {
+                name: user.name,
+                email: user.email,
+            }, 
+            'secret1234'
+        )
+
+        // Return the token in the response
+        return res.json({ status: "ok", user: token })
+    } else {
+        return res.json({ status: "error", user: false })
     }
-   
-
-   
-
 })
+
 
 
 
