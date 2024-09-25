@@ -43,7 +43,7 @@ app.post("/api/login", async (req, res) => {
             {
                 name: user.name,
                 email: user.email,
-            }, 
+            },
             'secret1234'
         )
 
@@ -52,6 +52,43 @@ app.post("/api/login", async (req, res) => {
     } else {
         return res.json({ status: "error", user: false })
     }
+})
+
+app.get("/api/quote", async (req, res) => {
+
+    const token = req.headers['x-access-token']
+
+    try {
+        const decode = jwt.verify(token, 'secret1234')
+        const email = decode.email
+        const user = await User.findOne({ email: email })
+
+        return res.json({ status: 'ok', quote: user.quote })
+    }catch(error){
+        console.log(error)
+        res.json({ status: 'error', error: 'invalid token'})
+    }
+    
+})
+
+app.post("/api/quote", async (req, res) => {
+
+    const token = req.headers['x-access-token']
+
+    try {
+        const decode = jwt.verify(token, 'secret1234')
+        const email = decode.email
+        await User.updateOne(
+            { email: email },
+            { $set: { quote: req.body.quote }}
+        )
+
+        return{ status: 'ok'}
+    }catch(error){
+        console.log(error)
+        res.json({ status: 'error', error: 'invalid token'})
+    }
+    
 })
 
 
