@@ -3,6 +3,7 @@ import cors from "cors"
 import mongoose from "mongoose";
 import User from "./models/user.model.js"
 import jwt from "jsonwebtoken"
+import bcrypt from "bcryptjs"
 import 'dotenv/config'
 
 const app = express();
@@ -16,10 +17,11 @@ mongoose.connect(process.env.MONGO_SECRET)
 app.post("/api/register", async (req, res) => {
     console.log(req.body)
     try {
+        const newPassword = await bcrypt.hash(req.body.password, 10)
         const user = await User.create({
             name: req.body.name,
             email: req.body.email,
-            password: req.body.password,
+            password: newPassword,
         })
         res.json({ status: "ok" })
     } catch (error) {
@@ -34,10 +36,18 @@ app.post("/api/login", async (req, res) => {
     // Find the user with matching email and password
     const user = await User.findOne({
         email: req.body.email,
-        password: req.body.password
+        // password: req.body.password
     })
 
-    if (user) {
+    if(!user){ return res.json(
+        {status: 'error', error:'Invalid login'}
+    )}
+
+    const isPasswordValid = await bcrypt.compare(
+        req.body.password, user.password
+    )
+
+    if (isPasswordValid) {
         // Generate a JWT token
         const token = jwt.sign(
             {
@@ -83,22 +93,13 @@ app.post("/api/quote", async (req, res) => {
             { $set: { quote: req.body.quote }}
         )
 
-        return{ status: 'ok'}
+        return res.json({ status: 'ok'})
     }catch(error){
         console.log(error)
         res.json({ status: 'error', error: 'invalid token'})
     }
     
 })
-
-
-
-
-
-
-
-
-
 
 app.listen(PORT, () => {
     console.log(`Server is running on port:${PORT}`)
