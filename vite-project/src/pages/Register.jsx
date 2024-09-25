@@ -1,7 +1,11 @@
 import { useState } from "react";
 import "../index.css";
+import { useNavigate } from "react-router-dom";
+
 
 function App() {
+  const navigate = useNavigate()
+  
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -22,7 +26,9 @@ function App() {
 
     const data = await response.json()
 
-    console.log(data)
+    if(data.status === 'ok'){
+      navigate('/login')
+    }
   }
 
   return (

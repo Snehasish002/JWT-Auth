@@ -3,6 +3,7 @@ import cors from "cors"
 import mongoose from "mongoose";
 import User from "./models/user.model.js"
 import jwt from "jsonwebtoken"
+import 'dotenv/config'
 
 const app = express();
 const PORT = 3000;
@@ -10,7 +11,7 @@ const PORT = 3000;
 app.use(cors())
 app.use(express.json())
 
-mongoose.connect("mongodb+srv://snehasishmohanty9439:Snehasish002@cluster0.l9agw.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0")
+mongoose.connect(process.env.MONGO_SECRET)
 
 app.post("/api/register", async (req, res) => {
     console.log(req.body)
