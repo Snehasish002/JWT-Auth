@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {jwt_decode} from "jwt-decode"; // Use jwt-decode for browser compatibility
+import { jwtDecode } from "jwt-decode"; // Use jwt-decode for browser compatibility
 import { useNavigate } from "react-router-dom";
 
 
@@ -26,7 +26,7 @@ const Dashboard = () => {
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (token) {
-      const user = jwt_decode(token); // Use jwt_decode to decode the token
+      const user = jwtDecode(token); // Use jwt_decode to decode the token
       if (!user) {
         localStorage.removeItem("token");
         navigate("/login");
@@ -65,12 +65,13 @@ const Dashboard = () => {
       <h1>Your Quote: {quote || "No qoute found :)"}</h1>
       <form onSubmit={updateQuote}>
         <input
+          className="update"
           type="text"
           placeholder="Quote"
           value={tempQuote}
           onChange={(e) => setTempQuote(e.target.value)}
         />
-        <input type="submit" value="Update quote" />
+        <input className="update-btn" type="submit" value="Update quote" />
       </form>
     </div>
   );
