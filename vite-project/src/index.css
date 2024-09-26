@@ -70,6 +70,6 @@
   border-top-right-radius: 5px;
   border-bottom-right-radius: 5px;
   border: none;
-  background: green;
+  background: rgb(62, 62, 62);
   cursor: pointer;
 }
