@@ -35,7 +35,7 @@ After a user registers and logs in, they can submit and write any quote using th
 1. Clone the repository:
     ```bash
     git clone git@github.com:Snehasish002/JWT-Auth.git
-    cd jwt-auth-mern-project
+    cd JWT-Auth
     ```
 
 2. Install dependencies for both the frontend and backend:
