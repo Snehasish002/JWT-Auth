@@ -34,7 +34,7 @@ After a user registers and logs in, they can submit and write any quote using th
 
 1. Clone the repository:
     ```bash
-    git clone https://github.com/your-username/jwt-auth-mern-project.git
+    git clone git@github.com:Snehasish002/JWT-Auth.git
     cd jwt-auth-mern-project
     ```
 
